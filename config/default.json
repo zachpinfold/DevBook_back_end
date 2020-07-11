@@ -1,0 +1,3 @@
+{
+    "mongoURI": "mongodb+srv://ZachPinfold:zachpinfold@devbook.n6405.mongodb.net/<dbname>?retryWrites=true&w=majority"
+}
