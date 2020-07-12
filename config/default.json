@@ -1,4 +1,6 @@
 {
     "mongoURI": "mongodb+srv://ZachPinfold:zachpinfold@devbook.n6405.mongodb.net/<dbname>?retryWrites=true&w=majority",
-    "jwtToken": "mysecrettoken"
+    "jwtToken": "mysecrettoken",
+    "githubClientId": "a180585506d74faa9621",
+    "githubSecret": "1eab1857dbc85da61c3a3ff5c1ec2b6c0350fdcb"
 }
