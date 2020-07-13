@@ -4,7 +4,7 @@ const inititialState = [];
 
 export default function (state = inititialState, action) {
 
-    const {type, payload} = action
+  const {type, payload} = action
 
   switch (type) {
     case SET_ALERT:
