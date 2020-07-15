@@ -4,9 +4,11 @@ const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 const request = require("request");
 const config = require("config");
+const normalize = require("normalize-url");
 
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
+const Post = require("../../models/Post");
 
 // @route   GET api/profile/me
 // @desc    Get current user's profile
@@ -142,12 +144,13 @@ router.get("/user/:user_id", async (req, res) => {
 
 router.delete("/", auth, async (req, res) => {
   try {
-    // @tofo - remove users posts
-
+    // Remove user posts
+    await Post.deleteMany({ user: req.user.id });
     // Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
     // Remove user
     await User.findOneAndRemove({ _id: req.user.id });
+
     res.json({ msg: "User removed" });
   } catch (err) {
     console.error(err.message);
@@ -243,6 +246,8 @@ router.put(
   ],
   async (req, res) => {
     const errors = validationResult(req);
+    console.log(res);
+
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array });
     }
@@ -269,11 +274,12 @@ router.put(
 
     try {
       const profile = await Profile.findOne({ user: req.user.id });
+      console.log(profile);
       profile.education.unshift(newEdu);
       await profile.save();
       res.json(profile);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       res.status(500).send("Server Error");
     }
   }
